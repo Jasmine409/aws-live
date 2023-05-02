@@ -41,13 +41,14 @@ def AddEmp():
     emp_image_file = request.files['emp_image_file']
 
     insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s)"
+    select_sql = "SELECT COUNT(*) FROM employee"
     cursor = db_conn.cursor()
-
+    
     if emp_image_file.filename == "":
         return "Please select a file"
-
-    try:
-
+    if cursor.execute(select_sql,(emp_id)).fetchone() == "":
+        return "Employee ID already exist"
+    try:   
         cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location))
         db_conn.commit()
         emp_name = "" + first_name + " " + last_name
@@ -80,7 +81,7 @@ def AddEmp():
         cursor.close()
 
     print("all modification done...")
-    return render_template('AddEmpOutput.html', name=emp_name)
+    return render_template('AddEmpOutput.html', out_h1=h1, out_h2=h2, name=emp_name)
 
 @app.route("/getemp", methods=['GET', 'POST'])
 def getpage():
