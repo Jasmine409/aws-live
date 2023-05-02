@@ -133,6 +133,14 @@ def GetEmp():
                            out_location=record[4],
                            image_url=img_url
                           )
-
+@app.route("/fsd")
+def fsdpage():
+    return render_template('fongsukdien.html')
+@app.route("/fmw")
+def fmwpage():
+    return render_template('fongsukdien.html')
+@app.route("/ethan")
+def ethanpage():
+    return render_template('fongsukdien.html')
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
