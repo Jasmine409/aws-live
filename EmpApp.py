@@ -81,7 +81,7 @@ def AddEmp():
         cursor.close()
 
     print("all modification done...")
-    return render_template('AddEmpOutput.html', out_h1=h1, out_h2=h2, name=emp_name)
+    return render_template('AddEmpOutput.html', name=emp_name)
 
 @app.route("/getemp", methods=['GET', 'POST'])
 def getpage():
