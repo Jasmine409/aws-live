@@ -91,7 +91,7 @@ def GetEmp():
     emp_id = request.form['emp_id']
     select_sql = "SELECT * FROM employee WHERE emp_id = (%s)"
     cursor = db_conn.cursor()
-    
+    img_url = ""
     try:
         cursor.execute(select_sql,(emp_id))
         print("Fetching single row")        
@@ -103,18 +103,10 @@ def GetEmp():
             
         else:
             emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
-            bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
-            s3_location = (bucket_location['LocationConstraint'])
 
-            if s3_location is None:
-                s3_location = ''
-            else:
-                s3_location = '-' + s3_location
-
-            img_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
-                s3_location,
-                custombucket,
+            img_url = "https://fongsukdien-employee.s3.amazonaws.com/{0}".format(
                 emp_image_file_name_in_s3)
+            
     except Exception as e:
         return str(e)
 
@@ -129,9 +121,10 @@ def GetEmp():
                            out_lname="NULL",
                            out_interest="NULL",
                            out_location="NULL",
-                           image_url=img_url
+                           image_url="notexist.jpg"
                           )
-    return render_template('GetEmpOutput.html', 
+    else :
+        return render_template('GetEmpOutput.html', 
                            out_id=record[0], 
                            out_fname=record[1], 
                            out_lname=record[2],
