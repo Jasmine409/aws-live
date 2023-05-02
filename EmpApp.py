@@ -121,7 +121,7 @@ def GetEmp():
                            out_lname="NULL",
                            out_interest="NULL",
                            out_location="NULL",
-                           image_url="notexist.jpg"
+                           image_url=img_url
                           )
     else :
         return render_template('GetEmpOutput.html', 
