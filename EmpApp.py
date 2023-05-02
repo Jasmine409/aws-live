@@ -71,7 +71,7 @@ def AddEmp():
                 custombucket,
                 emp_image_file_name_in_s3)
             
-
+            print(object_url)
 
         except Exception as e:
             return str(e)
@@ -119,7 +119,7 @@ def GetEmp():
                            out_lname=record[2],
                            out_interest=record[3],
                            out_location=record[4],
-                           image_url="wait"
+                           image_url=img_url
                           )
 
 if __name__ == '__main__':
