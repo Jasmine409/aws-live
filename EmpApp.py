@@ -46,7 +46,7 @@ def AddEmp():
     
     if emp_image_file.filename == "":
         return "Please select a file"
-    if cursor.execute(select_sql,(emp_id)).fetchone() == "":
+    if cursor.execute(select_sql,(emp_id)).fetchone() != "":
         return "Employee ID already exist"
     try:   
         cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location))
@@ -117,7 +117,7 @@ def GetEmp():
     print("fetch data done...")
     if record is None:
         return render_template('GetEmpOutput.html', 
-                           out_id="Employee Not Exist", 
+                           out_id="ID Not Exist", 
                            out_fname="NULL", 
                            out_lname="NULL",
                            out_interest="NULL",
