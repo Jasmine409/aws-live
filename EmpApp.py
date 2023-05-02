@@ -90,17 +90,22 @@ def getpage():
 def GetEmp():
     emp_id = request.form['emp_id']
     select_sql = "SELECT * FROM employee WHERE emp_id = (%s)"
-
+    cursor = db_conn.cursor()
+    
     try:
         cursor.execute(select_sql,(emp_id))
         print("Fetching single row")        
         # Fetch one record from SQL query output
         record = cursor.fetchone()
-        print(record)
-        emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
-        img_url = "https://fongsukdien-employee.s3.amazonaws.com/{0}".format(
-                emp_image_file_name_in_s3)
-        print("Url:",img_url)
+        print("Fetched: ",record)
+        if record is None:
+            print("No data found.")
+            
+        else:
+            emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
+            img_url = "https://fongsukdien-employee.s3.amazonaws.com/{0}".format(
+                    emp_image_file_name_in_s3)
+            print("Url:",img_url)
     except Exception as e:
         return str(e)
 
