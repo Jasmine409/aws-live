@@ -103,9 +103,18 @@ def GetEmp():
             
         else:
             emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
-            img_url = "https://fongsukdien-employee.s3.amazonaws.com/{0}".format(
-                    emp_image_file_name_in_s3)
-            print("Url:",img_url)
+            bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+            s3_location = (bucket_location['LocationConstraint'])
+
+            if s3_location is None:
+                s3_location = ''
+            else:
+                s3_location = '-' + s3_location
+
+            img_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                s3_location,
+                custombucket,
+                emp_image_file_name_in_s3)
     except Exception as e:
         return str(e)
 
@@ -113,6 +122,15 @@ def GetEmp():
         cursor.close()
 
     print("fetch data done...")
+    if record is None:
+        return render_template('GetEmpOutput.html', 
+                           out_id="Employee Not Exist", 
+                           out_fname="NULL", 
+                           out_lname="NULL",
+                           out_interest="NULL",
+                           out_location="NULL",
+                           image_url=img_url
+                          )
     return render_template('GetEmpOutput.html', 
                            out_id=record[0], 
                            out_fname=record[1], 
