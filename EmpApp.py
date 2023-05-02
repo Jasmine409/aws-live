@@ -26,9 +26,9 @@ def home():
     return render_template('AddEmp.html')
 
 
-@app.route("/about", methods=['POST'])
+@app.route("/about", methods=['GET'])
 def about():
-    return render_template('www.intellipaat.com')
+    return render_template('fongsukdien.html')
 
 
 @app.route("/addemp", methods=['POST'])
@@ -70,6 +70,8 @@ def AddEmp():
                 s3_location,
                 custombucket,
                 emp_image_file_name_in_s3)
+            
+
 
         except Exception as e:
             return str(e)
@@ -80,6 +82,40 @@ def AddEmp():
     print("all modification done...")
     return render_template('AddEmpOutput.html', name=emp_name)
 
+@app.route("/getemp", methods=['GET', 'POST'])
+def getpage():
+    return render_template('GetEmp.html')
+
+@app.route("/fetchdata", methods=['POST'])
+def GetEmp():
+    emp_id = request.form['emp_id']
+    select_sql = "SELECT * FROM employee WHERE emp_id = (%s)"
+
+    try:
+        cursor.execute(select_sql,(emp_id))
+        print("Fetching single row")        
+        # Fetch one record from SQL query output
+        record = cursor.fetchone()
+        print(record)
+        emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
+        img_url = "https://fongsukdien-employee.s3.amazonaws.com/{0}".format(
+                emp_image_file_name_in_s3)
+        print("Url:",img_url)
+    except Exception as e:
+        return str(e)
+
+    finally:
+        cursor.close()
+
+    print("fetch data done...")
+    return render_template('GetEmpOutput.html', 
+                           out_id=record[0], 
+                           out_fname=record[1], 
+                           out_lname=record[2],
+                           out_interest=record[3],
+                           out_location=record[4],
+                           image_url="wait"
+                          )
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
