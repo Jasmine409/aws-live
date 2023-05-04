@@ -26,7 +26,7 @@ def home():
     return render_template('AddEmp.html')
 
 
-@app.route("/about", methods=['GET'])
+@app.route("/about")
 def about():
     return render_template('aboutus.html')
 
@@ -138,7 +138,7 @@ def fsdpage():
     return render_template('fongsukdien.html')
 @app.route("/fmw")
 def fmwpage():
-    return render_template('fongsukdien.html')
+    return render_template('mengwen.html')
 @app.route("/ethan")
 def ethanpage():
     return render_template('fongsukdien.html')
