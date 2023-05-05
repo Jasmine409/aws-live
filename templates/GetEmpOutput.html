@@ -3,11 +3,14 @@
 <head>
 	<title>Employee Information</title>
 	<script>
-		function confirmDelete() {
-		    var result = confirm("Are you sure you want to delete?");
-		    if (result) {
-			window.location.href = "/delete";
-		    }
+		function confirmSubmit() {
+			  var confirmed = window.confirm("Are you sure you want to delete this record?");
+			  if (confirmed) {
+			    return true;
+			  } 
+			  else {
+			    return false;
+			  }
 		}
 	</script>
 </head>
@@ -19,7 +22,6 @@
 		<body bgcolor="lightgrey">
 
 			<form>
-
 				<div>
 
 			  		Employee ID:<br> {{ out_id }} <br><br>
@@ -38,11 +40,12 @@
 					</div>
 
 			  		<button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" formaction="/getemp">RESET</button><br><br>
-					<button onclick="confirmDelete()" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">Delete</button>
+					
 			  	</div>
-
 			</form>
-
+			<form onsubmit="return confirmSubmit()" formaction="/delete">
+				<button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">Delete Record</button>
+			</form>
 		</body>
 
 	</font>
