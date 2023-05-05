@@ -24,13 +24,13 @@
     <!-- Stylesheets
     ================================================== -->
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="assets/ethan_css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='ethan_css/bootstrap.min.css')}}" />
 
     <!-- Font Awesome core CSS -->
-    <link rel="stylesheet" href="assets/ethan_css/font-awesome.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='ethan_css/font-awesome.min.css')}}" />
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/ethan_css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ethan_css/style.css')}}">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -116,7 +116,7 @@
 					</div>
 					<div class="col-sm-4">
 						<div class="big-rectangle">
-							<img src="assets/ethan_img/ethan_image.png" alt="" height="200px" width="200px">
+							<img src="{{ url_for('static', filename='ethan_img/ethan_image.png')}}" alt="" height="200px" width="200px">
 						</div><!-- /.big-rectangle -->
 					</div>
 					<div class="col-sm-4">
@@ -238,7 +238,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <a class="rectangle" data-dismiss="modal"><i class="fa fa-times"></i></a>
-                    <img class="img-res" src="assets/ethan_img/portfolio-1.jpg" alt="">
+                    <img class="img-res" src="{{ url_for('static', filename='ethan_img/portfolio-1.jpg')}}" alt="">
                 </div>
                 <div class="modal-body">
                     <h4 class="modal-title">Project title</h4>
@@ -256,7 +256,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <a class="rectangle" data-dismiss="modal"><i class="fa fa-times"></i></a>
-                    <img class="img-res" src="assets/ethan_img/portfolio-2.jpg" alt="">
+                    <img class="img-res" src="{{ url_for('static', filename='ethan_img/portfolio-2.jpg')}}" alt="">
                 </div>
                 <div class="modal-body">
                     <h4 class="modal-title">Project title</h4>
@@ -274,7 +274,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <a class="rectangle" data-dismiss="modal"><i class="fa fa-times"></i></a>
-                    <img class="img-res" src="assets/ethan_img/portfolio-4.jpg" alt="">
+                    <img class="img-res" src="{{ url_for('static', filename='ethan_img/portfolio-4.jpg')}}" alt="">
                 </div>
                 <div class="modal-body">
                     <h4 class="modal-title">Project title</h4>
@@ -292,7 +292,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <a class="rectangle" data-dismiss="modal"><i class="fa fa-times"></i></a>
-                    <img class="img-res" src="assets/ethan_img/portfolio-3.jpg" alt="">
+                    <img class="img-res" src="{{ url_for('static', filename='ethan_img/portfolio-3.jpg')}}" alt="">
                 </div>
                 <div class="modal-body">
                     <h4 class="modal-title">Project title</h4>
@@ -310,7 +310,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <a class="rectangle" data-dismiss="modal"><i class="fa fa-times"></i></a>
-                    <img class="img-res" src="assets/ethan_img/portfolio-5.jpg" alt="">
+                    <img class="img-res" src="{{ url_for('static', filename='ethan_img/portfolio-5.jpg')}}" alt="">
                 </div>
                 <div class="modal-body">
                     <h4 class="modal-title">Project title</h4>
@@ -328,7 +328,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <a class="rectangle" data-dismiss="modal"><i class="fa fa-times"></i></a>
-                    <img class="img-res" src="assets/ethan_img/portfolio-6.jpg" alt="">
+                    <img class="img-res" src="a{{ url_for('static', filename='ethan_img/portfolio-6.jpg')}}" alt="">
                 </div>
                 <div class="modal-body">
                     <h4 class="modal-title">Project title</h4>
@@ -346,7 +346,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <a class="rectangle" data-dismiss="modal"><i class="fa fa-times"></i></a>
-                    <img class="img-res" src="assets/ethan_img/portfolio-7.jpg" alt="">
+                    <img class="img-res" src="{{ url_for('static', filename='ethan_img/portfolio-7.jp')}}" alt="">
                 </div>
                 <div class="modal-body">
                     <h4 class="modal-title">Project title</h4>
@@ -364,7 +364,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <a class="rectangle" data-dismiss="modal"><i class="fa fa-times"></i></a>
-                    <img class="img-res" src="assets/ethan_img/portfolio-8.jpg" alt="">
+                    <img class="img-res" src="{{ url_for('static', filename='ethan_img/portfolio-8.jpg')}}" alt="">
                 </div>
                 <div class="modal-body">
                     <h4 class="modal-title">Project title</h4>
@@ -381,31 +381,31 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <!-- jQuery core js | Do not Delete -->
-    <script src="assets/ethan_js/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='ethan_js/jquery.min.js')}}"></script>
 
     <!-- Bootstrap core js | Do not Delete -->
-    <script src="assets/ethan_js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='ethan_js/bootstrap.min.js')}}"></script>
 
     <!-- Bootstrap progressbar JS -->
-    <script src="assets/ethan_js/bootstrap-progressbar.min.js"></script>
+    <script src="{{ url_for('static', filename='ethan_js/bootstrap-progressbar.min.js')}}"></script>
 
     <!-- Count To JS -->
-    <script src="assets/ethan_js/jquery.countTo.min.js"></script>
+    <script src="{{ url_for('static', filename='ethan_js/jquery.countTo.min.js')}}"></script>
 
     <!-- Easing JS -->
-    <script src="assets/ethan_js/jquery.easing.min.js"></script>
+    <script src="{{ url_for('static', filename='ethan_js/jquery.easing.min.js')}}"></script>
 
     <!-- Shuffle JS -->
-    <script src="assets/ethan_js/jquery.shuffle.min.js"></script>
+    <script src="{{ url_for('static', filename='ethan_js/jquery.shuffle.min.js')}}"></script>
 
     <!-- Slick Carousel JS -->
-    <script src="assets/ethan_js/slick.min.js"></script>
+    <script src="{{ url_for('static', filename='ethan_js/slick.min.js')}}"></script>
 
     <!-- Touchswipe JS -->
-    <script src="assets/ethan_js/touchswipe.min.js"></script>
+    <script src="{{ url_for('static', filename='ethan_js/touchswipe.min.js')}}"></script>
 
     <!-- Custom JS -->
-    <script src="assets/ethan_js/script.js"></script>
+    <script src="{{ url_for('static', filename='ethan_js/script.js')}}"></script>
   
 </body>
 </html>
