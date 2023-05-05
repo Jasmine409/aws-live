@@ -39,13 +39,13 @@
     						<img src="{{image_url}}" width="200px" height="200px" alt="Image Not Found">
 					</div>
 
-			  		<button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" formaction="/getemp">RESET</button>
+			  		<button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" formaction="/getemp">RESET</button><br>
 					
 			  	</div>
 			</form>
 			<form onsubmit="return confirmSubmit()" action="/delete" method = "POST">
 				<input type="hidden" name="emp_id" value="{{ out_id }}">
-				<button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">Delete Record</button>
+				<button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">Delete Record</button><br>
 			</form>
 			<form action="/fetchup" method = "POST">
 				<input type="hidden" name="emp_id" value="{{ out_id }}">
