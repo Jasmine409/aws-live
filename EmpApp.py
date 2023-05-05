@@ -225,7 +225,7 @@ def delete(emp_id):
     cursor.execute(delete_sql, (emp_id))
     cursor.execute(select_sql, (emp_id))
     object_name = "emp-id-" + str(emp_id) + "_image_file"
-    s3.delete_object(Bucket=custombucket, Key=object_name)
+    s3.Object(bucket_name, object_name).delete()
     record = cursor.fetchone()
     obj = s3.Object(bucket_name, object_name)
     if record is None and obj is None:
