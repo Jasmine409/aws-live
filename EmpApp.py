@@ -141,6 +141,6 @@ def fmwpage():
     return render_template('mengwen.html')
 @app.route("/ethan")
 def ethanpage():
-    return render_template('fongsukdien.html')
+    return render_template('ethanlim.html')
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
