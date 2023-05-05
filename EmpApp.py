@@ -135,7 +135,7 @@ def GetEmp():
                           )
 
 @app.route("/updateemp", methods=['GET', 'POST'])
-def getpage():
+def uppage():
     return render_template('UpdateEmp.html')
 
 @app.route("/fetchup", methods=['POST'])
