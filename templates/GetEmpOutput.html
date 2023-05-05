@@ -2,6 +2,14 @@
 <html>
 <head>
 	<title>Employee Information</title>
+	<script>
+		function confirmDelete() {
+		    var result = confirm("Are you sure you want to delete?");
+		    if (result) {
+			window.location.href = "/delete";
+		    }
+		}
+	</script>
 </head>
 <center>
 	<font color="black" size="5" style="font-family: avenir">
@@ -30,7 +38,7 @@
 					</div>
 
 			  		<button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" formaction="/getemp">RESET</button><br><br>
-
+					<button onclick="confirmDelete()" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">Delete</button>
 			  	</div>
 
 			</form>
