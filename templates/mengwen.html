@@ -62,7 +62,7 @@
             <div class="row">
 
                   <div class="mx-auto col-lg-5 col-md-5 col-10">
-                      <img src="mw_images/mw.jpg" class="img-fluid" alt="Meng Wen Pic">
+                      <img src="{{ url_for('static', filename='mw_images/mw.jpg')}}" class="img-fluid" alt="Meng Wen Pic">
                   </div>
 
                    <div class="d-flex flex-column justify-content-center align-items-center col-lg-7 col-md-7 col-12">
@@ -100,7 +100,7 @@
                 </div>
 
                 <div class="col-lg-5 mx-auto col-md-6 col-12">
-                    <img src="mw_images/mw2.jpg" class="about-image img-fluid" alt="Meng Wen's pic2">
+                    <img src="{{ url_for('static', filename='mw_images/mw2.jpg')}}" class="about-image img-fluid" alt="Meng Wen's pic2">
                 </div>
             </div>
         </div>
@@ -163,11 +163,11 @@
       </div>
     </section>
      <!-- SCRIPTS -->
-     <script src="mw_js/jquery.min.js"></script>
-     <script src="mw_js/bootstrap.min.js"></script>
-     <script src="mw_js/smoothscroll.js"></script>
-     <script src="mw_js/owl.carousel.min.js"></script>
-     <script src="mw_js/custom.js"></script>
+     <script src="{{ url_for('static', filename='mw_js/jquery.min.js')}}"></script>
+     <script src="{{ url_for('static', filename='mw_js/bootstrap.min.js')}}"></script>
+     <script src="{{ url_for('static', filename='mw_js/smoothscroll.js')}}"></script>
+     <script src="{{ url_for('static', filename='mw_js/owl.carousel.min.js')}}"></script>
+     <script src="{{ url_for('static', filename='mw_js/custom.js')}}"></script>
 
 </body>
 </html>
