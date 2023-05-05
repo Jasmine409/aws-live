@@ -3,6 +3,7 @@ from pymysql import connections
 import os
 import boto3
 from config import *
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -38,9 +39,11 @@ def AddEmp():
     last_name = request.form['last_name']
     pri_skill = request.form['pri_skill']
     location = request.form['location']
+    salary = request.form['salary']
+    othours = request.form['othours']
     emp_image_file = request.files['emp_image_file']
 
-    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s)"
+    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s, %.2f, %d)"
     select_sql = "SELECT * FROM employee WHERE emp_id = (%s)"
     cursor = db_conn.cursor()
     cursor.execute(select_sql,(emp_id))
@@ -49,7 +52,7 @@ def AddEmp():
     if cursor.fetchone() is not None:
         return "Employee ID already exist"
     try:   
-        cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location))
+        cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location, salary, othours))
         db_conn.commit()
         emp_name = "" + first_name + " " + last_name
         # Uplaod image file in S3 #
@@ -90,6 +93,7 @@ def getpage():
 @app.route("/fetchdata", methods=['POST'])
 def GetEmp():
     emp_id = request.form['emp_id']
+    sysdate = now.strftime("%d/%m/%Y %H:%M:%S")
     select_sql = "SELECT * FROM employee WHERE emp_id = (%s)"
     cursor = db_conn.cursor()
     img_url = ""
@@ -108,6 +112,7 @@ def GetEmp():
             img_url = "https://fongsukdien-employee.s3.amazonaws.com/{0}".format(
                 emp_image_file_name_in_s3)
             
+            calc_payroll = record[5] + (record[5] * 0.05 * record[6])
     except Exception as e:
         return str(e)
 
@@ -122,6 +127,10 @@ def GetEmp():
                            out_lname="NULL",
                            out_interest="NULL",
                            out_location="NULL",
+                           out_salary="NULL",
+                           out_othours="NULL",
+                           out_payroll="NULL",
+                           out_date="NULL",                               
                            image_url=img_url
                           )
     else :
@@ -131,6 +140,10 @@ def GetEmp():
                            out_lname=record[2],
                            out_interest=record[3],
                            out_location=record[4],
+                           out_salary=record[5],
+                           out_othours=record[6],
+                           out_payroll=str(calc_payroll),
+                           out_date=sysdate,
                            image_url=img_url
                           )
 
@@ -165,7 +178,9 @@ def UpdateEmp():
                            out_fname=record[1], 
                            out_lname=record[2],
                            out_skill=record[3],
-                           out_location=record[4]
+                           out_location=record[4],
+                           out_salary=record[5],
+                           out_othours=record[6]
                           )
 
 @app.route("/upemp", methods=['POST'])
@@ -175,16 +190,18 @@ def UpEmp():
     last_name = request.form['last_name']
     pri_skill = request.form['pri_skill']
     location = request.form['location']
+    salary = request.form['salary']
+    othours = request.form['othours']
     emp_image_file = request.files['emp_image_file']
 
-    update_sql = "UPDATE employee SET first_name = (%s), last_name = (%s), pri_skill = (%s), location= (%s) WHERE emp_id = (%s)"
+    update_sql = "UPDATE employee SET first_name=(%s), last_name=(%s), pri_skill=(%s), location=(%s), salary=(%.2f), othours=(%d) WHERE emp_id = (%s)"
     cursor = db_conn.cursor()
 
     if emp_image_file.filename == "":
         return "Please select a file"
 
     try:   
-        cursor.execute(update_sql, (first_name, last_name, pri_skill, location, emp_id))
+        cursor.execute(update_sql, (first_name, last_name, pri_skill, location, salary, othours, emp_id))
         db_conn.commit()
         emp_name = "" + first_name + " " + last_name
         # Uplaod image file in S3 #
