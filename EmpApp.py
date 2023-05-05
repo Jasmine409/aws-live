@@ -217,8 +217,9 @@ def UpEmp():
     print("all modification done...")
     return render_template('UpdateEmpOutput.html', name=emp_name)
 
-@app.route('/delete')
-def delete(emp_id):
+@app.route('/delete', methods=['POST'])
+def delete():
+    emp_id = request.form['emp_id']
     delete_sql = "DELETE FROM employee WHERE emp_id = (%s)"
     select_sql = "SELECT * FROM employee WHERE emp_id = (%s)"
     cursor = db_conn.cursor()
