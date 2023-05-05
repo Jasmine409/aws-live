@@ -231,19 +231,19 @@ def delete(emp_id):
     record = cursor.fetchone()
     obj = s3.Object(bucket_name, object_name)
     if record is None and obj is None:
-	return '''
-		<script>
-		   	alert("Delete Succesfully");
-			window.location.href = "/";
-		</script>
-		 '''
-    else :
-	return '''
-		<script>
-			alert("Error Occur");
-			window.location.href = "/getemp";
-		</script>
-		'''
+            return '''
+                   <script>
+                        alert("Delete Succesfully");
+                        window.location.href = "/";
+                   </script>
+                   '''
+    else :  
+            return '''
+                   <script>
+                        alert("Error Occur");
+                        window.location.href = "/getemp";
+                   </script>
+                   '''
 
 @app.route("/fsd")
 def fsdpage():
