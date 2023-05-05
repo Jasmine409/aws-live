@@ -190,7 +190,7 @@ def UpEmp():
         # Uplaod image file in S3 #
         emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
 	s3.delete_object(Bucket=custombucket, Key=emp_image_file_name_in_s3)
-        s3 = boto3.resource('s3')
+	s3 = boto3.resource('s3')
 
         try:
             print("Data inserted in MySQL RDS... uploading image to S3...")
