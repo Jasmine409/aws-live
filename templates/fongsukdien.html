@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>FongSukDien</title>
 
-	<link rel="stylesheet" href="assets/fsd_css/meyawo.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='fsd_css/meyawo.css')}}">
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
 
@@ -27,7 +27,7 @@
 
             <div class="about">
                 <div class="about-img-holder">
-                    <img src="assets/fsd_imgs/profile.png" class="about-img">
+                    <img src="{{ url_for('static', filename='fsd_imgs/profile.png')}}" class="about-img">
                 </div>
                 <div class="about-caption">
                     <p class="section-subtitle">Who Am I ?</p>
@@ -50,7 +50,7 @@
                 <div class="col-md-6 col-lg-3">
                     <div class="service-card">
                         <div class="body">
-                            <img src="assets/fsd_imgs/pencil-case.svg"   class="icon">
+                            <img src="{{ url_for('static', filename='fsd_imgs/pencil-case.svg')}}"   class="icon">
                             <h6 class="title">Amazon Web Services (AWS)</h6>
                             <p class="subtitle">The world's most comprehensive and broadly adopted cloud.</p>
                         </div>
@@ -59,7 +59,7 @@
                 <div class="col-md-6 col-lg-3">
                     <div class="service-card">
                         <div class="body">
-                            <img src="assets/fsd_imgs/responsive.svg"   class="icon">
+                            <img src="{{ url_for('static', filename='fsd_imgs/responsive.svg')}}"   class="icon">
                             <h6 class="title">Tableau</h6>
                             <p class="subtitle">Data visualization software that lets you see and understand data in minutes.</p>
                         </div>
@@ -68,7 +68,7 @@
                 <div class="col-md-6 col-lg-3">
                     <div class="service-card">
                         <div class="body">
-                            <img src="assets/fsd_imgs/toolbox.svg"   class="icon">
+                            <img src="{{ url_for('static', filename='fsd_imgs/toolbox.svg')}}"   class="icon">
                             <h6 class="title">Statistical Analysis System (SAS)</h6>
                             <p class="subtitle">Innovative Analytics, Artificial Intelligence and Data Management software.</p>
                         </div>
@@ -77,7 +77,7 @@
                 <div class="col-md-6 col-lg-3">
                     <div class="service-card">
                         <div class="body">
-                            <img src="assets/fsd_imgs/analytics.svg"   class="icon">
+                            <img src="{{ url_for('static', filename='fsd_imgs/analytics.svg')}}"   class="icon">
                             <h6 class="title">Anaconda</h6>
                             <p class="subtitle">An open-source distribution for python and R for data science, machine learning, deep learning, etc.</p>
                         </div>
@@ -96,7 +96,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div href="#" class="portfolio-card">
-                        <img src="assets/fsd_imgs/folio-1.jpg" class="portfolio-card-img"  >    
+                        <img src="{{ url_for('static', filename='fsd_imgs/folio-1.jpg)}}" class="portfolio-card-img"  >    
                         <span class="portfolio-card-overlay">
                             <span class="portfolio-card-caption">
                                 <h4>Languages</h4>
@@ -107,7 +107,7 @@
                 </div>
                 <div class="col-md-4">
                     <div href="#" class="portfolio-card">
-                        <img class="portfolio-card-img" src="assets/fsd_imgs/folio-2.jpg" class="img-responsive rounded"  >
+                        <img class="portfolio-card-img" src="{{ url_for('static', filename='fsd_imgs/folio-2.jpg')}}" class="img-responsive rounded"  >
                         <span class="portfolio-card-overlay">
                             <span class="portfolio-card-caption">
                                 <h4>Interests</h4>
@@ -118,7 +118,7 @@
                 </div>
                 <div class="col-md-4">
                     <div href="#" class="portfolio-card">
-                        <img class="portfolio-card-img" src="assets/fsd_imgs/folio-3.jpg" class="img-responsive rounded"  >    
+                        <img class="portfolio-card-img" src="{{ url_for('static', filename='fsd_imgs/folio-3.jpg')}}" class="img-responsive rounded"  >    
                         <span class="portfolio-card-overlay">
                             <span class="portfolio-card-caption">
                                 <h4>Good at</h4>
