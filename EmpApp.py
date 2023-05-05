@@ -169,7 +169,7 @@ def UpdateEmp():
                           )
 
 @app.route("/updata", methods=['POST'])
-def AddEmp():
+def UpEmp():
     emp_id = request.form['emp_id']
     first_name = request.form['first_name']
     last_name = request.form['last_name']
@@ -179,7 +179,7 @@ def AddEmp():
 
     update_sql = "UPDATE employee SET first_name = (%s), last_name = (%s), pri_skill = (%s), location= (%s) WHERE emp_id = (%s)"
     cursor = db_conn.cursor()
-    cursor.execute(select_sql,(emp_id))
+
     if emp_image_file.filename == "":
         return "Please select a file"
 
@@ -189,8 +189,7 @@ def AddEmp():
         emp_name = "" + first_name + " " + last_name
         # Uplaod image file in S3 #
         emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
-	    obj = s3.Object(custombucket, emp_image_file_name_in_s3)
-	    obj.delete()
+	s3.delete_object(Bucket=custombucket, Key=emp_image_file_name_in_s3)
         s3 = boto3.resource('s3')
 
         try:
@@ -220,7 +219,31 @@ def AddEmp():
     print("all modification done...")
     return render_template('UpdateEmpOutput.html', name=emp_name)
 
-
+@app.route('/delete', methods=['POST'])
+def delete(emp_id):
+    delete_sql = "DELETE FROM employee WHERE emp_id = (%s)"
+    select_sql = "SELECT * FROM employee WHERE emp_id = (%s)"
+    cursor = db_conn.cursor()
+    cursor.execute(delete_sql, (emp_id))
+    cursor.execute(select_sql, (emp_id))
+    object_name = "emp-id-" + str(emp_id) + "_image_file"
+    s3.delete_object(Bucket=custombucket, Key=object_name)
+    record = cursor.fetchone()
+    obj = s3.Object(bucket_name, object_name)
+    if record is None and obj is None:
+	return '''
+		<script>
+		   	alert("Delete Succesfully");
+			window.location.href = "/";
+		</script>
+		 '''
+    else :
+	return '''
+		<script>
+			alert("Error Occur");
+			window.location.href = "/getemp";
+		</script>
+		'''
 
 @app.route("/fsd")
 def fsdpage():
