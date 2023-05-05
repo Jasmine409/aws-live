@@ -151,7 +151,7 @@ def UpdateEmp():
         record = cursor.fetchone()
         print("Fetched: ",record)
         if record is None:
-            return "Employee Not Found. Please proceed to add Employee Page."
+            return "Employee Not Found. To add new record, please proceed to Home Page."
             
     except Exception as e:
         return str(e)
@@ -232,14 +232,12 @@ def delete(emp_id):
             return '''
                    <script>
                         alert("Delete Succesfully");
-                        window.location.href = "/";
                    </script>
                    '''
     else :  
             return '''
                    <script>
                         alert("Error Occur");
-                        window.location.href = "/getemp";
                    </script>
                    '''
 
