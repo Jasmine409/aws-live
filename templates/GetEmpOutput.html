@@ -43,8 +43,13 @@
 					
 			  	</div>
 			</form>
-			<form onsubmit="return confirmSubmit()" action="/delete">
+			<form onsubmit="return confirmSubmit()" action="/delete" method = "POST">
+				<input type="hidden" name="emp_id" value="{{ out_id }}">
 				<button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">Delete Record</button>
+			</form>
+			<form action="/fetchup" method = "POST">
+				<input type="hidden" name="emp_id" value="{{ out_id }}">
+				<button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">Update Record</button>
 			</form>
 		</body>
 
