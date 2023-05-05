@@ -133,6 +133,95 @@ def GetEmp():
                            out_location=record[4],
                            image_url=img_url
                           )
+
+@app.route("/updateemp", methods=['GET', 'POST'])
+def getpage():
+    return render_template('UpdateEmp.html')
+
+@app.route("/fetchup", methods=['POST'])
+def UpdateEmp():
+    emp_id = request.form['emp_id']
+    select_sql = "SELECT * FROM employee WHERE emp_id = (%s)"
+    cursor = db_conn.cursor()
+    img_url = ""
+    try:
+        cursor.execute(select_sql,(emp_id))
+        print("Fetching single row")        
+        # Fetch one record from SQL query output
+        record = cursor.fetchone()
+        print("Fetched: ",record)
+        if record is None:
+            return "Employee Not Found. Please proceed to add Employee Page."
+            
+    except Exception as e:
+        return str(e)
+
+    finally:
+        cursor.close()
+
+    print("fetch data done...")
+    return render_template('UpdateEmpContent.html', 
+                           out_id=record[0], 
+                           out_fname=record[1], 
+                           out_lname=record[2],
+                           out_skill=record[3],
+                           out_location=record[4]
+                          )
+
+@app.route("/updata", methods=['POST'])
+def AddEmp():
+    emp_id = request.form['emp_id']
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    pri_skill = request.form['pri_skill']
+    location = request.form['location']
+    emp_image_file = request.files['emp_image_file']
+
+    update_sql = "UPDATE employee SET first_name = (%s), last_name = (%s), pri_skill = (%s), location= (%s) WHERE emp_id = (%s)"
+    cursor = db_conn.cursor()
+    cursor.execute(select_sql,(emp_id))
+    if emp_image_file.filename == "":
+        return "Please select a file"
+
+    try:   
+        cursor.execute(update_sql, (first_name, last_name, pri_skill, location, emp_id))
+        db_conn.commit()
+        emp_name = "" + first_name + " " + last_name
+        # Uplaod image file in S3 #
+        emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
+	    obj = s3.Object(custombucket, emp_image_file_name_in_s3)
+	    obj.delete()
+        s3 = boto3.resource('s3')
+
+        try:
+            print("Data inserted in MySQL RDS... uploading image to S3...")
+            s3.Bucket(custombucket).put_object(Key=emp_image_file_name_in_s3, Body=emp_image_file)
+            bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+            s3_location = (bucket_location['LocationConstraint'])
+
+            if s3_location is None:
+                s3_location = ''
+            else:
+                s3_location = '-' + s3_location
+
+            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                s3_location,
+                custombucket,
+                emp_image_file_name_in_s3)
+            
+            print(object_url)
+
+        except Exception as e:
+            return str(e)
+
+    finally:
+        cursor.close()
+
+    print("all modification done...")
+    return render_template('UpdateEmpOutput.html', name=emp_name)
+
+
+
 @app.route("/fsd")
 def fsdpage():
     return render_template('fongsukdien.html')
