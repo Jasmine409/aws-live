@@ -168,7 +168,7 @@ def UpdateEmp():
                            out_location=record[4]
                           )
 
-@app.route("/updata", methods=['POST'])
+@app.route("/upemp", methods=['POST'])
 def UpEmp():
     emp_id = request.form['emp_id']
     first_name = request.form['first_name']
