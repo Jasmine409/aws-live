@@ -222,6 +222,7 @@ def delete():
     emp_id = request.form['emp_id']
     delete_sql = "DELETE FROM employee WHERE emp_id = (%s)"
     select_sql = "SELECT * FROM employee WHERE emp_id = (%s)"
+
     cursor = db_conn.cursor()
     cursor.execute(delete_sql, (emp_id))
     cursor.execute(select_sql, (emp_id))
@@ -230,18 +231,7 @@ def delete():
     s3.Object(custombucket, object_name).delete()
     record = cursor.fetchone()
     obj = s3.Object(custombucket, object_name)
-    if record is None and obj is None:
-            return '''
-                   <script>
-                        alert("Delete Succesfully");
-                   </script>
-                   '''
-    else :  
-            return '''
-                   <script>
-                        alert("Error Occur");
-                   </script>
-                   '''
+    return render_template('DeleteEmpOutput.html', deleted_id=emp_id)
 
 @app.route("/fsd")
 def fsdpage():
