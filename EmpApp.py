@@ -274,7 +274,7 @@ def summary():
                 """).format(employee_id=record[0],name=full_name,pri_skill=record[3],
                            location=record[4],salary=record[5],othours=record[6])
  
-    with open('ShowEmp.html', 'r+') as f:
+    with open('templates/ShowEmp.html', 'r+') as f:
         lines = f.readlines()
  
         for i, line in enumerate(lines):
