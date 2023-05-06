@@ -52,7 +52,10 @@ def AddEmp():
     if cursor.fetchone() is not None:
         return "Employee ID already exist"
     try:   
-        cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location, float(salary), int(othours)))
+        salary = float(salary)
+        othours = int(othours)
+        print(type(salary),type(othours))
+        cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location, salary, othours))
         db_conn.commit()
         emp_name = "" + first_name + " " + last_name
         # Uplaod image file in S3 #
