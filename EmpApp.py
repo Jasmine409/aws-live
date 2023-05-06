@@ -259,10 +259,10 @@ def summary():
     cursor.execute(select_sql)
     rows = cursor.fetchall()
 
-    a = ""
+    mcode = ""
     for record in rows:
         full_name = record[1]+record[2]
-        a = a + ("""
+        mcode = mcode + ("""
                   <li class='table-row'>
                     <div class="col col-1" >{employee_id}</div>
                     <div class="col col-2" >{name}</div>
@@ -273,18 +273,15 @@ def summary():
                   </li>
                 """).format(employee_id=record[0],name=full_name,pri_skill=record[3],
                            location=record[4],salary=record[5],othours=record[6])
- 
-    with open('templates/ShowEmp.html', 'r+') as f:
-        lines = f.readlines()
- 
-        for i, line in enumerate(lines):
-            if line.startswith('</li>'):   # find a pattern so that we can add next to that line
-                lines[i] = lines[i]+a
-        f.truncate()
-        f.seek(0)                                           # rewrite into the file
+    with open('templates/ShowEmp.html', 'r') as file:
+        html_code = file.read()
+    fcode = html_code.split('<-- Insert Code -->', 1)[0]
+    ecode = html_code.split('<-- Insert Code -->', 1)[1]
+    
+    modified_html = fcode + mcode + ecode
 
-        for line in lines:
-            f.write(line)
+    with open('templates/ShowEmp.html', 'w') as file:
+        file.write(modified_html)
   
     return render_template('ShowEmp.html')
 
