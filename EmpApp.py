@@ -256,8 +256,8 @@ def summary():
 
     result = cursor.execute(select2_sql, (emp_id))
     lenght = result.fetchone()
-    rows = cursor.execute(select_sql, (emp_id))
-    lenght = rows.fetchall()
+    cur_emp = cursor.execute(select_sql, (emp_id))
+    rows = cur_emp.fetchall()
     
     a = """ """
     for record in rows:
