@@ -232,7 +232,7 @@ def UpEmp():
     print("all modification done...")
     return render_template('UpdateEmpOutput.html', name=emp_name)
 
-@app.route('/delete', methods=['POST'])
+@app.route('/delete', methods=['GET'])
 def delete():
     emp_id = request.form['emp_id']
     delete_sql = "DELETE FROM employee WHERE emp_id = (%s)"
@@ -249,7 +249,7 @@ def delete():
     obj = s3.Object(custombucket, object_name)
     return render_template('DeleteEmpOutput.html', deleted_id=emp_id)
 
-@app.route('/summary', methods=['POST'])
+@app.route('/summary', methods=['GET'])
 def summary():
     select_sql = "SELECT * FROM employee WHERE emp_id = (%s)"
     select2_sql = "SELECT COUNT(*) FROM employee WHERE emp_id = (%s)"
