@@ -52,7 +52,7 @@ def AddEmp():
     if cursor.fetchone() is not None:
         return "Employee ID already exist"
     try:   
-        cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location, salary, othours))
+        cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location, float(salary), int(othours)))
         db_conn.commit()
         emp_name = "" + first_name + " " + last_name
         # Uplaod image file in S3 #
@@ -197,33 +197,31 @@ def UpEmp():
     update_sql = "UPDATE employee SET first_name=(%s), last_name=(%s), pri_skill=(%s), location=(%s), salary=(%.2f), othours=(%d) WHERE emp_id = (%s)"
     cursor = db_conn.cursor()
 
-    if emp_image_file.filename == "":
-        return "Please select a file"
-
     try:   
-        cursor.execute(update_sql, (first_name, last_name, pri_skill, location, salary, othours, emp_id))
+        cursor.execute(update_sql, (first_name, last_name, pri_skill, location, salary, float(salary), int(othours)))
         db_conn.commit()
         emp_name = "" + first_name + " " + last_name
-        # Uplaod image file in S3 #
-        emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
-        s3 = boto3.resource('s3')
-        obj = s3.Object(custombucket, emp_image_file_name_in_s3)
-        obj.delete()
-        try:
-            print("Data inserted in MySQL RDS... uploading image to S3...")
-            s3.Bucket(custombucket).put_object(Key=emp_image_file_name_in_s3, Body=emp_image_file)
-            bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
-            s3_location = (bucket_location['LocationConstraint'])
+        if emp_image_file.filename is not None:
+            emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
 
-            if s3_location is None:
-                s3_location = ''
-            else:
-                s3_location = '-' + s3_location
+            s3 = boto3.resource('s3')
+            obj = s3.Object(custombucket, emp_image_file_name_in_s3)
+            obj.delete()
+            try:
+                print("Data inserted in MySQL RDS... uploading image to S3...")
+                s3.Bucket(custombucket).put_object(Key=emp_image_file_name_in_s3, Body=emp_image_file)
+                bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+                s3_location = (bucket_location['LocationConstraint'])
 
-            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
-                s3_location,
-                custombucket,
-                emp_image_file_name_in_s3)
+                if s3_location is None:
+                    s3_location = ''
+                else:
+                    s3_location = '-' + s3_location
+
+                object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                    s3_location,
+                    custombucket,
+                    emp_image_file_name_in_s3)
 
         except Exception as e:
             return str(e)
