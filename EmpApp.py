@@ -247,7 +247,7 @@ def delete():
     obj = s3.Object(custombucket, object_name)
     return render_template('DeleteEmpOutput.html', deleted_id=emp_id)
 
-@app.route('/summary', methods=['POST'])
+@app.route('/summary', methods=['POST','GET'])
 def summary():
     select_sql = "SELECT * FROM employee"
     select2_sql = "SELECT COUNT(*) FROM employee"
