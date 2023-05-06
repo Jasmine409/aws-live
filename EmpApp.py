@@ -43,7 +43,7 @@ def AddEmp():
     othours = request.form['othours']
     emp_image_file = request.files['emp_image_file']
 
-    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s, %.2f, %d)"
+    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s, %s, %s)"
     select_sql = "SELECT * FROM employee WHERE emp_id = (%s)"
     cursor = db_conn.cursor()
     cursor.execute(select_sql,(emp_id))
@@ -52,10 +52,7 @@ def AddEmp():
     if cursor.fetchone() is not None:
         return "Employee ID already exist"
     try:   
-        salary = float(salary)
-        othours = int(othours)
-        print(type(salary),type(othours))
-        cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location, 2000, 4))
+        cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location, salary, othours))
         db_conn.commit()
         emp_name = "" + first_name + " " + last_name
         # Uplaod image file in S3 #
