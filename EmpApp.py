@@ -240,6 +240,7 @@ def delete():
 
     cursor = db_conn.cursor()
     cursor.execute(delete_sql, (emp_id))
+    db_conn.commit()
     cursor.execute(select_sql, (emp_id))
     object_name = "emp-id-" + str(emp_id) + "_image_file"
     s3 = boto3.resource('s3')
