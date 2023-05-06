@@ -93,7 +93,7 @@ def getpage():
 @app.route("/fetchdata", methods=['POST'])
 def GetEmp():
     emp_id = request.form['emp_id']
-    sysdate = now.strftime("%d/%m/%Y %H:%M:%S")
+    sysdate = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     select_sql = "SELECT * FROM employee WHERE emp_id = (%s)"
     cursor = db_conn.cursor()
     img_url = ""
