@@ -194,11 +194,11 @@ def UpEmp():
     othours = request.form['othours']
     emp_image_file = request.files['emp_image_file']
 
-    update_sql = "UPDATE employee SET first_name=(%s), last_name=(%s), pri_skill=(%s), location=(%s), salary=(%.2f), othours=(%d) WHERE emp_id = (%s)"
+    update_sql = "UPDATE employee SET first_name=(%s), last_name=(%s), pri_skill=(%s), location=(%s), salary=(%s), othours=(%s) WHERE emp_id = (%s)"
     cursor = db_conn.cursor()
 
     try:   
-        cursor.execute(update_sql, (first_name, last_name, pri_skill, location, salary, float(salary), int(othours)))
+        cursor.execute(update_sql, (first_name, last_name, pri_skill, location, salary, salary, othours))
         db_conn.commit()
         emp_name = "" + first_name + " " + last_name
         if emp_image_file.filename is not None:
