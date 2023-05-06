@@ -254,10 +254,10 @@ def summary():
     select_sql = "SELECT * FROM employee"
     select2_sql = "SELECT COUNT(*) FROM employee"
     cursor = db_conn.cursor()
-    result = cursor.execute(select2_sql)
-    lengh = result.fetchone()
-    cur_emp = cursor.execute(select_sql)
-    rows = cur_emp.fetchall()
+    cursor.execute(select2_sql)
+    length = cursor.fetchone()
+    cursor.execute(select_sql)
+    rows = cursor.fetchall()
 
     a = ""
     for record in rows:
