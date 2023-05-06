@@ -253,17 +253,17 @@ def delete():
 def summary():
     select_sql = "SELECT * FROM employee WHERE emp_id = (%s)"
     select2_sql = "SELECT COUNT(*) FROM employee WHERE emp_id = (%s)"
-
+    cursor = db_conn.cursor()
     result = cursor.execute(select2_sql, (emp_id))
-    lenght = result.fetchone()
+    lengh = result.fetchone()
     cur_emp = cursor.execute(select_sql, (emp_id))
     rows = cur_emp.fetchall()
-    
-    a = """ """
+    print('hi')    
+    a = ""
     for record in rows:
         full_name = record[1]+record[2]
         a = a + ("""
-                  <li class="table-row">
+                  <li class='table-row'>
                     <div class="col col-1" >{employee_id}</div>
                     <div class="col col-2" >{name}</div>
                     <div class="col col-3" >{pri_skill}</div>
@@ -273,17 +273,19 @@ def summary():
                   </li>
                 """).format(employee_id=record[0],name=full_name,pri_skill=record[3],
                            location=record[4],salary=record[5],othours=record[6])
-
-    file_html.close()
+    print('hihi')    
     with open('ShowEmp.html', 'r+') as f:
         lines = f.readlines()
+        print('hihihi')    
         for i, line in enumerate(lines):
             if line.startswith('</li>'):   # find a pattern so that we can add next to that line
                 lines[i] = lines[i]+a
         f.truncate()
         f.seek(0)                                           # rewrite into the file
+        print('hihihihi')    
         for line in lines:
             f.write(line)
+    print('hi5')    
     return render_template('ShowEmp.html')
 
 @app.route("/fsd")
