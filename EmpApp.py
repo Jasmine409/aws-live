@@ -55,7 +55,7 @@ def AddEmp():
         salary = float(salary)
         othours = int(othours)
         print(type(salary),type(othours))
-        cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location, salary, othours))
+        cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location, 2000, 4))
         db_conn.commit()
         emp_name = "" + first_name + " " + last_name
         # Uplaod image file in S3 #
