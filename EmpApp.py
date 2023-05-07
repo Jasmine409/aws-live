@@ -200,7 +200,7 @@ def UpEmp():
         cursor.execute(update_sql, (first_name, last_name, pri_skill, location, salary, othours, emp_id))
         db_conn.commit()
         emp_name = "" + first_name + " " + last_name
-        if emp_image_file.filename is not None:
+        if emp_image_file.filename != "":
             emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
 
             s3 = boto3.resource('s3')
