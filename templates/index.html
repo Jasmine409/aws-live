@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Employee Database</title>
+    <style>
+        form > button{
+            font-size: 1em;
+        }
+        #flex-container{
+            display: flex;
+            flex-wrap: wrap;
+            width: 60%;
+            margin: auto;
+            justify-content: center;
+        }
+        #flex-container > button{
+            flex-basis: 40%;
+            box-sizing: border-box;
+            margin: 10px;
+            height: 150px;
+            font-size: 1.3em;
+            border-radius: 50px;
+        }
+
+    </style>
+</head>
+<center>
+	<font color="black" size="4" style="font-family: avenir">
+
+		<h1 style="color: DodgerBlue">Employee Database</h1>
+
+		<body bgcolor="lightgrey">
+		<form>
+            <div id="flex-container">
+                <button type="submit" formaction="/addhome" style="background: grey;  color:white; font:oblique; ">INSERT NEW EMPLOYEE</button><br><br>
+                <button type="submit" formaction="/getemp" style="background: grey;  color:white; font:oblique;">GET EMPLOYEE INFORMATION</button><br><br>
+                <button type="submit" formaction="/updateemp" style="background: grey;  color:white; font:oblique;">UPDATE EXISTING EMPLOYEE</button><br><br>
+                <button type="submit" style="background: grey; color:white; font:oblique;" formaction="/summary">EMPLOYEE SUMMARY</button><br><br>
+            </div>
+			<h3 style="color: DodgerBlue; font-weight: 200px; font-size:2em; font:oblique;margin:20px;">ABOUT US</h3>
+      		<button type="submit" formaction="/fsd" style="background: grey; height: 100px; width: 250px; color:white; font:oblique; margin:20px;">FONG SUK DIEN</button>
+      		<button type="submit" formaction="/fmw" style="background: grey; height: 100px; width: 250px; color:white; font:oblique;margin:20px;">FOO MENG WEN</button>
+      		<button type="submit" formaction="/ethan" style="background: grey; height: 100px; width: 250px; color:white; font:oblique;margin:20px;">ETHAN LIM LIANG HUI</button><br>
+		</form>
+		</body>
+
+	</font>
+</center>
+</html>
