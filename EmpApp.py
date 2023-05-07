@@ -270,14 +270,14 @@ def summary():
                   </li>
                 """).format(employee_id=record[0],name=full_name,pri_skill=record[3],
                            location=record[4],salary=record[5],othours=record[6])
-    with open('templates/ShowEmp.html', 'r') as file:
+    with open('/var/www/html/aws-live/templates/ShowEmp.html', 'r') as file:
         html_code = file.read()
     fcode = html_code.split('<-- Insert Code -->', 1)[0]
     ecode = html_code.split('<-- Insert Code -->', 1)[1]
     
     modified_html = fcode + mcode + ecode
 
-    with open('templates/ShowEmp.html', 'w') as file:
+    with open('/var/www/html/aws-live/templates/ShowEmp.html', 'w') as file:
         file.write(modified_html)
   
     return render_template('ShowEmp.html')
