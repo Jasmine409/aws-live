@@ -255,11 +255,12 @@ def summary():
 
     cursor.execute(select_sql)
     rows = cursor.fetchall()
-
+    total = 0
     code = ""
     for record in rows:
         full_name = record[1]+record[2]
-        calc_payroll = record[5] + (record[5] * 0.05 * record[6])
+        pay= record[5] + (record[5] * 0.05 * record[6])
+        total = total + pay
         code = code + ("""
                   <li class='table-row'>
                     <div class="col col-1" >{employee_id}</div>
@@ -268,11 +269,14 @@ def summary():
                     <div class="col col-4" >{location}</div>
                     <div class="col col-5" >{salary:.2f}</div>
                     <div class="col col-6" >{othours}</div>
+                    <div class="col col-7" >{payroll:.2f}</div>
                   </li>
                 """).format(employee_id=record[0],name=full_name,pri_skill=record[3],
-                           location=record[4],salary=record[5],othours=record[6])
-    total_sql = "SELECT COUNT(*) FROM employee"
-    return render_template('ShowEmp.html',table_code=code)
+                           location=record[4],salary=record[5],othours=record[6],payroll=pay)
+    summary_sql = "SELECT COUNT(*) FROM employee"
+    cursor.execute(summary_sql)
+    result = cursor.fetchone()
+    return render_template('ShowEmp.html',table_code=code, count=result[0],total_pay=total)
 
 @app.route("/fsd")
 def fsdpage():
