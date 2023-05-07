@@ -30,7 +30,7 @@ def addpage():
     return render_template('AddEmp.html')
 
 
-@app.route("/addemp", methods=['POST'])
+@app.route("/addemp", methods=['GET', 'POST'])
 def AddEmp():
     emp_id = request.form['emp_id']
     first_name = request.form['first_name']
@@ -88,7 +88,7 @@ def AddEmp():
 def getpage():
     return render_template('GetEmp.html')
 
-@app.route("/fetchdata", methods=['POST'])
+@app.route("/fetchdata", methods=['GET', 'POST'])
 def GetEmp():
     emp_id = request.form['emp_id']
     sysdate = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
@@ -181,7 +181,7 @@ def UpdateEmp():
                            out_othours=record[6]
                           )
 
-@app.route("/upemp", methods=['POST'])
+@app.route("/upemp", methods=['GET', 'POST'])
 def UpEmp():
 
     emp_id = request.form['emp_id']
@@ -231,7 +231,7 @@ def UpEmp():
     print("all modification done...")
     return render_template('UpdateEmpOutput.html', name=emp_name)
 
-@app.route('/delete', methods=['GET'])
+@app.route('/delete', methods=['GET', 'POST'])
 def delete():
     emp_id = request.form['emp_id']
     delete_sql = "DELETE FROM employee WHERE emp_id = (%s)"
