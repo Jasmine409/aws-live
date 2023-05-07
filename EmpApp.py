@@ -250,10 +250,9 @@ def delete():
 @app.route('/summary', methods=['POST','GET'])
 def summary():
     select_sql = "SELECT * FROM employee"
-    select2_sql = "SELECT COUNT(*) FROM employee"
+
     cursor = db_conn.cursor()
-    cursor.execute(select2_sql)
-    length = cursor.fetchone()
+
     cursor.execute(select_sql)
     rows = cursor.fetchall()
 
