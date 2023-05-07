@@ -259,6 +259,7 @@ def summary():
     code = ""
     for record in rows:
         full_name = record[1]+record[2]
+        calc_payroll = record[5] + (record[5] * 0.05 * record[6])
         code = code + ("""
                   <li class='table-row'>
                     <div class="col col-1" >{employee_id}</div>
@@ -270,7 +271,7 @@ def summary():
                   </li>
                 """).format(employee_id=record[0],name=full_name,pri_skill=record[3],
                            location=record[4],salary=record[5],othours=record[6])
-
+    total_sql = "SELECT COUNT(*) FROM employee"
     return render_template('ShowEmp.html',table_code=code)
 
 @app.route("/fsd")
