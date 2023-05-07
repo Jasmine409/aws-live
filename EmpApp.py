@@ -256,10 +256,10 @@ def summary():
     cursor.execute(select_sql)
     rows = cursor.fetchall()
 
-    mcode = ""
+    code = ""
     for record in rows:
         full_name = record[1]+record[2]
-        mcode = mcode + ("""
+        code = code + ("""
                   <li class='table-row'>
                     <div class="col col-1" >{employee_id}</div>
                     <div class="col col-2" >{name}</div>
@@ -270,17 +270,8 @@ def summary():
                   </li>
                 """).format(employee_id=record[0],name=full_name,pri_skill=record[3],
                            location=record[4],salary=record[5],othours=record[6])
-    with open('/var/www/html/aws-live/templates/ShowEmp.html', 'r') as file:
-        html_code = file.read()
-    fcode = html_code.split('<-- Insert Code -->', 1)[0]
-    ecode = html_code.split('<-- Insert Code -->', 1)[1]
-    
-    modified_html = fcode + mcode + ecode
 
-    with open('/var/www/html/aws-live/templates/ShowEmp.html', 'w') as file:
-        file.write(modified_html)
-  
-    return render_template('ShowEmp.html')
+    return render_template('ShowEmp.html',table_code=code)
 
 @app.route("/fsd")
 def fsdpage():
