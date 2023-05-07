@@ -275,7 +275,7 @@ def summary():
                 """).format(employee_id=record[0],name=full_name,pri_skill=record[3],
                            location=record[4],salary=record[5],othours=record[6],payroll=pay)
 
-    return render_template('ShowEmp.html',table_code=code, cursor.rowcount,total_pay=total)
+    return render_template('ShowEmp.html',table_code=code, count=cursor.rowcount,total_pay=total)
 
 @app.route("/fsd")
 def fsdpage():
