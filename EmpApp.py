@@ -152,7 +152,7 @@ def uppage():
 @app.route("/fetchup", methods=['POST'])
 def UpdateEmp():
     emp_id = request.form['emp_id']
-    select_sql = "SELECT * FROM employee WHERE emp_id = (%s)"
+    select_sql = "SELECT * FROM employee WHERE emp_id = %s"
     cursor = db_conn.cursor()
     img_url = ""
     try:
@@ -183,6 +183,7 @@ def UpdateEmp():
 
 @app.route("/upemp", methods=['POST'])
 def UpEmp():
+
     emp_id = request.form['emp_id']
     first_name = request.form['first_name']
     last_name = request.form['last_name']
@@ -192,11 +193,11 @@ def UpEmp():
     othours = request.form['othours']
     emp_image_file = request.files['emp_image_file']
 
-    update_sql = "UPDATE employee SET first_name=(%s), last_name=(%s), pri_skill=(%s), location=(%s), salary=(%s), othours=(%s) WHERE emp_id = (%s)"
+    update_sql = "UPDATE employee SET first_name=%s, last_name=%s, pri_skill=%s, location=%s, salary=%s, othours=%s WHERE emp_id = %s"
     cursor = db_conn.cursor()
 
     try:   
-        cursor.execute(update_sql, (first_name, last_name, pri_skill, location, salary, salary, othours))
+        cursor.execute(update_sql, (first_name, last_name, pri_skill, location, salary, othours, emp_id))
         db_conn.commit()
         emp_name = "" + first_name + " " + last_name
         if emp_image_file.filename is not None:
@@ -273,10 +274,8 @@ def summary():
                   </li>
                 """).format(employee_id=record[0],name=full_name,pri_skill=record[3],
                            location=record[4],salary=record[5],othours=record[6],payroll=pay)
-    summary_sql = "SELECT COUNT(*) FROM employee"
-    cursor.execute(summary_sql)
-    result = cursor.fetchone()
-    return render_template('ShowEmp.html',table_code=code, count=result[0],total_pay=total)
+
+    return render_template('ShowEmp.html',table_code=code, cursor.rowcount,total_pay=total)
 
 @app.route("/fsd")
 def fsdpage():
