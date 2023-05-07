@@ -235,12 +235,10 @@ def UpEmp():
 def delete():
     emp_id = request.form['emp_id']
     delete_sql = "DELETE FROM employee WHERE emp_id = (%s)"
-    select_sql = "SELECT * FROM employee WHERE emp_id = (%s)"
 
     cursor = db_conn.cursor()
     cursor.execute(delete_sql, (emp_id))
     db_conn.commit()
-    cursor.execute(select_sql, (emp_id))
     object_name = "emp-id-" + str(emp_id) + "_image_file"
     s3 = boto3.resource('s3')
     s3.Object(custombucket, object_name).delete()
